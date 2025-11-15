@@ -1,5 +1,5 @@
 export interface RestaurantDataType {
-    id: number;
+    id: string;
     image: string;
     name: string;
     category: string;
@@ -7,4 +7,5 @@ export interface RestaurantDataType {
     description: string;
     date: string;
     party: number;
+    price: string;
 }

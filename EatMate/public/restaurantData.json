@@ -1,16 +1,17 @@
 [
     {
-        "id":1,
+        "id":"1",
         "image": "https://ap-southeast-2-seek-apac.graphassets.com/AEzBCRO50TYyqbV6XzRDQz/resize=width:1200,height:628/nFXHfs1bQXG91K3VORbF",
         "name": "ร้านของหวาน",
         "category": "dessert",
         "promotion": "1แถม1",
         "description": "แซมาอึลชิกตังจัดโปรครบรอบ 4 ปี ทานครบ 500.- (ไม่รวม Vat/Service charge) ก็จะได้ซื้อเมนูซิกเนเจอร์ ยอลทัน พุลโกกีหรือที่เรียกว่า หมูสไลด์ย่างเตาถ่าน เลือกได้ทั้งรสเผ็ดจัดจ้าน และรสซีอิ๊วเกาหลี กลมกล่อม ซื้อ 1 แถม 1 ไปโลด~",
         "date": "12 ตุลาคม 2568",
-        "party": 2
+        "party": 2,
+        "price": "ราคา 95 บาท"
     },
     {
-        "id":2,
+        "id":"2",
         "image": "https://ap-southeast-2-seek-apac.graphassets.com/AEzBCRO50TYyqbV6XzRDQz/resize=width:1200,height:628/nFXHfs1bQXG91K3VORbF",
         "name": "ร้านชาบู",
         "category": "shabu",
@@ -20,7 +21,7 @@
         "party": 2
     },
     {
-        "id":3,
+        "id":"3",
         "image": "https://ap-southeast-2-seek-apac.graphassets.com/AEzBCRO50TYyqbV6XzRDQz/resize=width:1200,height:628/nFXHfs1bQXG91K3VORbF",
         "name": "ร้านชาบู",
         "category": "shabu",
@@ -30,7 +31,7 @@
         "party": 2
     },
     {
-        "id":4,
+        "id":"4",
         "image": "https://ap-southeast-2-seek-apac.graphassets.com/AEzBCRO50TYyqbV6XzRDQz/resize=width:1200,height:628/nFXHfs1bQXG91K3VORbF",
         "name": "ร้านของหวาน",
         "category": "dessert",

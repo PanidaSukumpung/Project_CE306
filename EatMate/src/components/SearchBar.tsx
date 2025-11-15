@@ -1,7 +1,7 @@
 import Button from "./Button"
 const SearchBar = () => {
     return(
-        <form className="space-x-4 bg-white p-2 shadow-md rounded-md w-1/2  flex">
+        <form className="space-x-4 bg-white p-2 shadow-md rounded-md w-full  flex">
             <input 
             type="text" 
             name ="search"
