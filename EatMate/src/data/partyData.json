@@ -1,0 +1,38 @@
+[
+    {
+        "id":"P01",
+        "name": "ปาร์ตี้ 1" ,
+        "restaurantId" : "R01",
+        "hostName" : "A3",
+        "location" : "Huasengheng",
+        "maxParticipants" : 2,
+        "participants" : 1,
+        "date" : "12/02/2568",
+        "time" : "19.00น",
+        "details" : "นัดเจอกันที่หน้าห้าง"
+    },
+    {
+        "id":"P02",
+        "name": "ปาร์ตี้ 2" ,
+        "restaurantId" : "R02",
+        "hostName" : "A3",
+        "location" : "Huasengheng",
+        "maxParticipants" : 4,
+        "participants" : 0,
+        "date" : "12/02/2568",
+        "time" : "19.00น",
+        "details" : "นัดเจอกันที่หน้าห้าง"
+    },
+    {
+        "id":"P03",
+        "name": "ปาร์ตี้ 3" ,
+        "restaurantId" : "R01",
+        "hostName" : "A3",
+        "location" : "Huasengheng",
+        "maxParticipants" : 4,
+        "participants" : 0,
+        "date" : "12/02/2568",
+        "time" : "19.00น",
+        "details" : "นัดเจอกันที่หน้าห้าง"
+    }
+]
