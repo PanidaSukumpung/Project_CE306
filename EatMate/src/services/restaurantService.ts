@@ -3,6 +3,7 @@
  * ใช้เป็นข้อมูลตั้งต้นเมื่อไม่มีข้อมูลใน localStorage
  */
 import restaurantsData from '../data/restaurantData.json';
+import branch from '../data/branch.json'
 
 /**
  * Interface กำหนดโครงสร้างข้อมูลร้านอาหาร
@@ -26,6 +27,12 @@ export interface Restaurant {
   date: string;
   party: number;
   price?: string;
+}
+
+export interface Branch {
+  branchId: string;
+  restaurantId: string;
+  branchName: string;
 }
 
 /**
@@ -57,6 +64,7 @@ const saveRestaurants = (restaurants: Restaurant[]): void => {
 export const getAllRestaurants = (): Restaurant[] => {
   return loadRestaurants();
 };
+
 
 /**
  * ค้นหาร้านอาหารจากรหัส (ID)
@@ -128,4 +136,75 @@ export const deleteRestaurant = (id: string): boolean => {
  */
 export const resetRestaurants = (): void => {
   saveRestaurants([...restaurantsData]);
+};
+
+
+
+/**
+ * คีย์สำหรับเก็บข้อมูลใน localStorage
+ */
+const STORAGE_KEY_BRANCH = 'branches_data';
+
+/**
+ * โหลดข้อมูลสาขาจาก localStorage หรือใช้ข้อมูลเริ่มต้น
+ * @returns {Branch[]} อาร์เรย์ของสาขาทั้งหมด
+ */
+const loadBranches = (): Branch[] => {
+  const savedData = localStorage.getItem(STORAGE_KEY_BRANCH);
+  if (savedData) {
+    return JSON.parse(savedData);
+  }
+  // หากไม่มีข้อมูลใน localStorage ให้ใช้ JSON เริ่มต้น
+  return [...branch];
+};
+
+/**
+ * บันทึกข้อมูลสาขาลง localStorage
+ * @param {Branch[]} branches - อาร์เรย์ของสาขาที่ต้องการบันทึก
+ */
+const saveBranches = (branches: Branch[]): void => {
+  localStorage.setItem(STORAGE_KEY_BRANCH, JSON.stringify(branches));
+};
+
+/**
+ * ดึงสาขาทั้งหมด
+ * @returns {Branch[]} อาร์เรย์ของสาขาทั้งหมด
+ */
+export const getAllBranches = (): Branch[] => {
+  return loadBranches();
+};
+
+/**
+ * ดึงสาขาของร้านอาหารเฉพาะ
+ * @param {string} restaurantId - รหัสร้านอาหาร
+ * @returns {Branch[]} อาร์เรย์ของสาขาที่ตรงกับร้านนั้น
+ */
+export const getBranchesByRestaurant = (restaurantId: string): Branch[] => {
+  return loadBranches().filter(b => b.restaurantId === restaurantId);
+};
+
+/**
+ * เพิ่มหรือแก้ไขสาขา
+ * @param {Branch} branch - ข้อมูลสาขาที่ต้องการบันทึก
+ */
+export const saveBranch = (branch: Branch): void => {
+  const branches = loadBranches();
+  const index = branches.findIndex(b => b.branchId === branch.branchId);
+
+  if (index !== -1) {
+    branches[index] = branch; // update
+  } else {
+    branches.push(branch); // add new
+  }
+
+  saveBranches(branches);
+};
+
+/**
+ * ลบสาขา
+ * @param {string} branchId - รหัสสาขาที่ต้องการลบ
+ */
+export const deleteBranch = (branchId: string): void => {
+  const branches = loadBranches().filter(b => b.branchId !== branchId);
+  saveBranches(branches);
 };

@@ -5,7 +5,9 @@ export interface Party {
     id: string;     
     name:string;   
     img ?:string;     
-    restaurantId: string;    
+    restaurantId: string;   
+    branchId: string; 
+    branchName: string;
     hostName: string;      
     location: string;       
     participants: number;    
@@ -13,6 +15,8 @@ export interface Party {
     details: string;         
     date: string;            
     time: string; 
+    status?: string;
+    
 }
 
 const STORAGE_KEY = "parties_data";
@@ -30,32 +34,26 @@ export const initParties = () => {
 const loadParties = (): Party[] => {
   const saved = localStorage.getItem(STORAGE_KEY);
   if (saved) return JSON.parse(saved);
-  return [...partyData]; 
+  // clone deep จาก JSON
+  return JSON.parse(JSON.stringify(partyData));
 };
 
-const saveParties = (parties: Party[]): void => {
+export const saveParties = (parties: Party[]): void => {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(parties));
 };
 
 export const getAllParties = (): Party[] => {
-  console.log("Calling initParties...");
-  initParties();
   const parties = loadParties();
-  console.log("getAllParties -> parties:", parties);
   return parties;
 };
 
 
-export type PartyStatus = "joined" | "left" | "finished";
+export type UserPartyStatus = "joined" | "left" | "finished";
 
 export interface MyParty extends Party {
-  status: "joined" | "left" | "finished";
+  userStatus: UserPartyStatus;
+  queueId ?: string;
 }
-
-export interface MyParty extends Party {
-  status: PartyStatus;
-}
-
 
 export const getPartyById = (id: string): Party | undefined =>
   loadParties().find(p => p.id === id);
@@ -64,9 +62,18 @@ export const createParty = (partyDataInput: Omit<Party, "id" | "participants">):
   const parties = loadParties();
   const newParty: Party = {
     id: "P" + Date.now(), 
+    status:"pending",
     participants: 1,      
     ...partyDataInput,
   };
+   console.log("New party:", newParty);
+  console.log("Parties before push:", parties.map(p => p.id));
+
+  // ตรวจสอบว่ามี id ซ้ำกันหรือไม่
+  if (parties.some(p => p.id === newParty.id)) {
+    console.warn("Duplicate ID detected!", newParty.id);
+  }
+  
   parties.push(newParty);
   saveParties(parties);
   return newParty;
@@ -116,7 +123,7 @@ export const joinParty = (party: Party): void => {
   });
 
   // แปลง Party → MyParty แล้วบันทึก
-  const joinedParty: MyParty = { ...updated!, status: "joined" };
+  const joinedParty: MyParty = { ...updated!, userStatus: "joined" };
   myParties.push(joinedParty);
   localStorage.setItem(MY_PARTY_KEY, JSON.stringify(myParties));
 };
@@ -128,3 +135,28 @@ export const leaveParty = (id: string): void => {
   const filtered = myParties.filter(p => p.id !== id);
   localStorage.setItem(MY_PARTY_KEY, JSON.stringify(filtered));
 };
+
+
+export const saveMyParty = (party: Party): MyParty[] => {
+  // โหลด myParties ปัจจุบัน
+  const myParties: MyParty[] = JSON.parse(localStorage.getItem(MY_PARTY_KEY) || "[]");
+
+  // ถ้ามี party เดิมแล้ว ไม่เพิ่มซ้ำ
+  if (myParties.some(p => p.id === party.id)) return myParties;
+
+  // แปลง Party → MyParty (participant default = 1, userStatus = "joined")
+  const newMyParty: MyParty = {
+    ...party,
+    participants: party.participants ?? 1,
+    userStatus: "joined"
+  };
+
+  // เพิ่ม party ใหม่
+  const updatedMyParties = [...myParties, newMyParty];
+
+  // บันทึกลง localStorage
+  localStorage.setItem(MY_PARTY_KEY, JSON.stringify(updatedMyParties));
+
+  return updatedMyParties;
+};
+

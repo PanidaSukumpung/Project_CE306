@@ -1,0 +1,87 @@
+[
+  {
+    "branchId": "B01",
+    "restaurantId": "R01",
+    "branchName": "Central Westgate"
+  },
+  {
+    "branchId": "B02",
+    "restaurantId": "R01",
+    "branchName": "Central Ladprao"
+  },
+  {
+    "branchId": "B03",
+    "restaurantId": "R01",
+    "branchName": "The Mall Ngamwongwan"
+  },
+  {
+    "branchId": "B04",
+    "restaurantId": "R01",
+    "branchName": "Central Rama 2"
+  },
+  {
+    "branchId": "B05",
+    "restaurantId": "R02",
+    "branchName": "Central Pinklao"
+  },
+  {
+    "branchId": "B06",
+    "restaurantId": "R02",
+    "branchName": "Central World"
+  },
+  {
+    "branchId": "B07",
+    "restaurantId": "R02",
+    "branchName": "Mega Bangna"
+  },
+  {
+    "branchId": "B08",
+    "restaurantId": "R03",
+    "branchName": "Central Pinklao"
+  },
+  {
+    "branchId": "B09",
+    "restaurantId": "R03",
+    "branchName": "Siam Paragon"
+  },
+  {
+    "branchId": "B10",
+    "restaurantId": "R03",
+    "branchName": "EmQuartier"
+  },
+  {
+    "branchId": "B11",
+    "restaurantId": "R04",
+    "branchName": "Central Rama 9"
+  },
+  {
+    "branchId": "B12",
+    "restaurantId": "R04",
+    "branchName": "The Mall Bangkapi"
+  },
+  {
+    "branchId": "B13",
+    "restaurantId": "R05",
+    "branchName": "Central Chidlom"
+  },
+  {
+    "branchId": "B14",
+    "restaurantId": "R05",
+    "branchName": "Central Silom"
+  },
+  {
+    "branchId": "B15",
+    "restaurantId": "R06",
+    "branchName": "Central Rama 3"
+  },
+  {
+    "branchId": "B16",
+    "restaurantId": "R06",
+    "branchName": "Central Eastville"
+  },
+  {
+    "branchId": "B17",
+    "restaurantId": "R06",
+    "branchName": "The Mall Thapra"
+  }
+]

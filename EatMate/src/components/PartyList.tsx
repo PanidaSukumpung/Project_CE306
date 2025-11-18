@@ -9,18 +9,20 @@ interface PartyListProps {
   setParties: React.Dispatch<React.SetStateAction<Party[]>>;
 }
 
-const PartyList: React.FC<PartyListProps> = ({ parties, setParties }) => {
+const PartyList: React.FC<PartyListProps> = ({ parties, setParties}) => {
   const [myParties, setMyParties] = useState<MyParty[]>(getMyParties());
-  const [selectedParty, setSelectedParty] = useState<Party | null>(null); // สำหรับ modal
+  const [selectedParty, setSelectedParty] = useState<Party | null>(null); 
 
   // Join จาก PartyDetail modal
   const handleJoinFromDetail = (party: Party) => {
-    joinParty(party); // บันทึกลง myParties
+    joinParty(party); 
+    const newMyParty: MyParty = { ...party, userStatus: "joined" };
+    setMyParties((prev) => [...prev, newMyParty]);
+
     updateParty(party.id, { participants: party.participants + 1 });
     setParties(prev =>
       prev.map(p => (p.id === party.id ? { ...p, participants: p.participants + 1 } : p))
     );
-    setMyParties(getMyParties());
   };
 
   const handleLeave = (party: Party) => {
@@ -33,14 +35,20 @@ const PartyList: React.FC<PartyListProps> = ({ parties, setParties }) => {
   return (
     <div className="flex flex-col gap-4">
       {parties.map((p) => {
-        const joined = myParties.some(mp => mp.id === p.id && mp.status === "joined");
+        const joined = myParties.some(mp => mp.id === p.id && mp.userStatus === "joined");
         return (
           <div key={p.id}>
             <PartyCard
               party={p}
               joined={joined}
-              onButtonClick={() => setSelectedParty(p)} // เปิด modal แทน join/leave ตรงนี้
-            />
+              onButtonClick={() => {
+                if (joined) {
+                handleLeave(p);
+              } else {
+                setSelectedParty(p);
+              }
+            }}
+                />
           </div>
         );
       })}
@@ -53,7 +61,7 @@ const PartyList: React.FC<PartyListProps> = ({ parties, setParties }) => {
           party={selectedParty}
           onJoin={(party) => {
             handleJoinFromDetail(party);
-            setSelectedParty(null); // ปิด modal หลัง join
+            setSelectedParty(null); 
           }}
         />
       )}

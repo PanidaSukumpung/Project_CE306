@@ -14,7 +14,7 @@
     {
         "id":"R02",
         "image": 
-        "https://scontent.fbkk34-2.fna.fbcdn.net/v/t39.30808-6/484121027_684199324177886_1115077978037561401_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeG-4tQkbPmMU3ato6Vzu9rL03JZUdgSwzPTcllR2BLDM0lXa_irfg-WD8E-x-VbuBaxTFhOmzQO_F8Rf685ee8o&_nc_ohc=kyRb9rBSg7kQ7kNvwGpa1PA&_nc_oc=AdnXYtJggaurBeZBslyTep7Mxpn-TwR3bSDFEe9VT0mu_9sPCtTQZJ0woNiFsdxQ1D8&_nc_zt=23&_nc_ht=scontent.fbkk34-2.fna&_nc_gid=hRWPW3sLPq0myplhSICb4Q&oh=00_AfgVc4Jd_QgpQu1qh3d84W_b0AMhy6WVmRd57dmFpm9tqA&oe=6913B14B",
+        "https://www.oishifood.com/upload_file/AW3+_KV_shabushi_hi-res-EDIT_Banner_2025.jpg",
         "name": "𝐒𝐇𝐀𝐁𝐔𝐒𝐇𝐈",
         "category": "shabu",
         "promotion": "4 จ่าย 3",
@@ -53,6 +53,17 @@
         "date": "ไม่จำกัดข่วงเวลา",
         "party": 2,
         "price": "399 บาท/ท่าน"
+    },
+     {
+        "id":"R06",
+        "image": "https://bizlabor.co/wp-content/uploads/2023/05/Frame-515-1024x539.jpg",
+        "name": "teenoi",
+        "category": "shabu",
+        "promotion": "199",
+        "description": "ตั้งแต่เที่ยงคืนถึง ตี5 ฟรีน้ำรีฟิล",
+        "date": "1 ธันวาคม 2568",
+        "party": 2,
+        "price": "199 บาท/ท่าน"
     }
     
 ]

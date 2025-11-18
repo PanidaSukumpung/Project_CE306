@@ -18,7 +18,7 @@ function App() {
         </Link>
         <div className="flex space-x-20 items-center">
           <Link to="/myparty" className="text-center text-white hover:text-red-600">
-            My party
+            My Party
           </Link>
           <Link to="/signin">
             <Button variant="secondary">Sign in</Button>

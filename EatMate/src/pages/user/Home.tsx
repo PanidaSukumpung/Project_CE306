@@ -16,7 +16,7 @@ const Home = () => {
 
   return (
     <div>
-      <div className="relative flex flex-col items-center mt-10 mb-10">
+      <div className="relative flex flex-col items-center mt-20 mb-20">
         <IoIosChatbubbles className="absolute left-0 text-7xl sm:text-9xl"/>
         <IoChatbubble className="absolute right-0 top-0 text-6xl sm:text-8xl scale-x-[-1] text-red-800"/>
 

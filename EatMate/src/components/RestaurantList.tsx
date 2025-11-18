@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import RestaurantCard from "./RestaurantCard";
-import type { Restaurant } from "../services/RestaurantService";
-import { getAllRestaurants } from "../services/RestaurantService";
+import type { Restaurant } from "../services/restaurantService";
+import { getAllRestaurants } from "../services/restaurantService";
 import { getAllParties } from "../services/partyService";
 
 interface RestaurantListProps {
