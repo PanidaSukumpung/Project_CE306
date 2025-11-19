@@ -81,7 +81,7 @@ const MyPartys = () => {
     }
   };
 
-  // ส่งไปใช้ใน PartyCard
+  
   const handleJoin = (party: Party) => {
     const allParties = getAllParties();
     const target = allParties.find((p) => p.id === party.id);
