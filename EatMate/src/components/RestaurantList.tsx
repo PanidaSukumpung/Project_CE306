@@ -58,7 +58,8 @@ const RestaurantList: React.FC<RestaurantListProps> = ({
   return (
     <div className="grid md:grid-cols-2 lg:grid-cols-3 w-full gap-6 justify-items-center ">
       {filteredRestaurants.map((r) => {
-        const partyCount = countParty.filter(p => p.restaurantId === r.id).length;
+        const partyCount = countParty.filter(p => p.restaurantId === r.id && p.status === 'pending').length;
+        
         return(
             <RestaurantCard
           key={r.id}

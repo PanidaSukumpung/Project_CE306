@@ -16,6 +16,8 @@ const Home = () => {
 
   return (
     <div>
+
+      {/* banner */}
       <div className="relative flex flex-col items-center mt-20 mb-20">
         <IoIosChatbubbles className="absolute left-0 hidden text-7xl sm:text-9xl"/>
         <IoChatbubble className="absolute right-0 top-0 text-6xl sm:text-8xl hidden scale-x-[-1] text-red-800"/>
@@ -35,12 +37,13 @@ const Home = () => {
           <SearchBar />
         </div>
       </div>
+       {/* banner */}
 
       {/* Category */}
       <div className="flex flex-col items-center mt-4 gap-2">
         <h1 className="font-bold text-3xl">Category</h1>
         <div className="flex flex-col sm:flex-row justify-center items-center gap-6 p-2">
-          {/* card */}
+          {/* cardCategory  ----- 1*/}
           <div
             onClick={() => handleCategoryClick("restaurant")}
             className="flex flex-col items-center p-4 rounded-xl shadow-red-200 shadow-lg gap-2 w-[150px]
@@ -61,7 +64,7 @@ const Home = () => {
             <p className="font-semibold text-xl text-red-300">Restaurant</p>
           </div>
 
-          {/* card */}
+          {/* cardCategory ----  2 */}
           <div
             onClick={() => handleCategoryClick("shabu")}
             className="flex flex-col items-center p-4 rounded-xl shadow-red-200 shadow-lg gap-2 w-[150px]
@@ -82,7 +85,7 @@ const Home = () => {
             <p className="font-semibold text-xl text-red-300">Shabu</p>
           </div>
 
-          {/* card */}
+           {/* cardCategory ----  2 */}
           <div
             onClick={() => handleCategoryClick("dessert")}
             className="flex flex-col items-center p-4 rounded-xl shadow-red-200 shadow-lg gap-2 w-[150px]
