@@ -148,7 +148,7 @@ const CreateParty: FC<Props> = ({
 
   return (
     <div className="fixed z-50 inset-0 flex justify-center items-center bg-black bg-opacity-30 p-6 ">
-      <div className="bg-white flex flex-col w-full md:w-4/6 h-full max-h-[90vh] md:h-3/6 justify-between rounded-md shadow-xl 
+      <div className="bg-white flex flex-col w-full md:w-4/6 h-full max-h-[90vh] justify-between rounded-md shadow-xl 
 ">
         {/* หัว */}
         <div className="w-full flex justify-center font-bold text-xl bg-red-600 rounded-t-md">
