@@ -20,7 +20,6 @@ import restaurants from "../../data/restaurantData.json";
 const MyPartys = () => {
   const [myParty, setMyParty] = useState<MyParty[]>([]);
 
-
   useEffect(() => {
     setMyParty(getMyParties());
   }, []);
@@ -31,49 +30,44 @@ const MyPartys = () => {
       return;
     }
 
-     const restaurant = restaurants.find(r => r.id === party.restaurantId);
+    const restaurant = restaurants.find((r) => r.id === party.restaurantId);
 
-  let updatedFields: Partial<MyParty> = { status: "confirmed" };
-  let queueId: string | null = null;
+    let updatedFields: Partial<MyParty> = { status: "confirmed" };
+    let queueId: string | null = null;
 
-  if (restaurant?.category === "dessert") {
-    alert("ยืนยันปาร์ตี้แล้ว สามารถ walk-in ได้เลย");
-  } else {
-    const q = addQueue(party.restaurantId, party.branchId, party.id);
-    queueId = q.queueId;
-    updatedFields.queueId = queueId;
-    if ( (restaurant?.category === "restaurant")) {
-      alert(`คุณได้โต๊ะที่ ${queueId}`);
-     
+    if (restaurant?.category === "dessert") {
+      alert("ยืนยันปาร์ตี้แล้ว สามารถ walk-in ได้เลย");
     } else {
-      alert(`คุณได้คิวที่ ${queueId}`);
+      const q = addQueue(party.restaurantId, party.branchId, party.id);
+      queueId = q.queueId;
+      updatedFields.queueId = queueId;
+      if (restaurant?.category === "restaurant") {
+        alert(`คุณได้โต๊ะที่ ${queueId}`);
+      } else {
+        alert(`คุณได้คิวที่ ${queueId}`);
+      }
     }
-    
-  }
 
-  setMyParty(prev =>
-    prev.map(p =>
+    setMyParty((prev) =>
+      prev.map((p) => (p.id === party.id ? { ...p, ...updatedFields } : p))
+    );
+
+    const myParties: MyParty[] = JSON.parse(
+      localStorage.getItem("my_parties_data") || "[]"
+    );
+    const updatedMyParties = myParties.map((p) =>
       p.id === party.id ? { ...p, ...updatedFields } : p
-    )
-  );
+    );
+    localStorage.setItem("my_parties_data", JSON.stringify(updatedMyParties));
 
-  const myParties: MyParty[] = JSON.parse(
-    localStorage.getItem("my_parties_data") || "[]"
-  );
-  const updatedMyParties = myParties.map(p =>
-    p.id === party.id ? { ...p, ...updatedFields } : p
-  );
-  localStorage.setItem("my_parties_data", JSON.stringify(updatedMyParties));
-
-
-  const allParties: Party[] = JSON.parse(
-    localStorage.getItem("parties_data") || "[]"
-  );
-  const updatedAllParties = allParties.map(p =>
-    p.id === party.id ? { ...p, ...updatedFields } : p
-  );
-  localStorage.setItem("parties_data", JSON.stringify(updatedAllParties));
-};
+    const allParties: Party[] = JSON.parse(
+      localStorage.getItem("parties_data") || "[]"
+    );
+    const updatedAllParties = allParties.map((p) =>
+      p.id === party.id ? { ...p, ...updatedFields } : p
+    );
+    localStorage.setItem("parties_data", JSON.stringify(updatedAllParties));
+  };
 
   const handleLeave = (party: MyParty) => {
     const allParties = getAllParties();
@@ -87,6 +81,7 @@ const MyPartys = () => {
     }
   };
 
+  // ส่งไปใช้ใน PartyCard
   const handleJoin = (party: Party) => {
     const allParties = getAllParties();
     const target = allParties.find((p) => p.id === party.id);
@@ -107,7 +102,7 @@ const MyPartys = () => {
     const newAllParties = allParties.filter((p) => p.id !== party.id);
     localStorage.setItem("parties_data", JSON.stringify(newAllParties));
 
-    // ลยข้อมูลออกจาก myParty (local)
+    // ลยข้อมูลออกจาก myParty
     const myParties: MyParty[] = JSON.parse(
       localStorage.getItem("my_parties_data") || "[]"
     );
@@ -122,7 +117,25 @@ const MyPartys = () => {
   const upcomingParty = myParty.filter((p) => p.status !== "confirmed");
   const historyParty = myParty.filter((p) => p.status === "confirmed");
 
- 
+  //  ลบข้อมูลpartyที่confirmedแล้วออกให้หมด
+  const handleDeleteAllHistory = () => {
+    // ลบจาก myParty
+    const myParties: MyParty[] = JSON.parse(
+      localStorage.getItem("my_parties_data") || "[]"
+    );
+    const updatedMyParties = myParties.filter((p) => p.status !== "confirmed");
+    localStorage.setItem("my_parties_data", JSON.stringify(updatedMyParties));
+    setMyParty(updatedMyParties);
+
+    //  ลบจาก all parties
+    const allParties: Party[] = JSON.parse(
+      localStorage.getItem("parties_data") || "[]"
+    );
+    const updatedAllParties = allParties.filter(
+      (p) => p.status !== "confirmed"
+    );
+    localStorage.setItem("parties_data", JSON.stringify(updatedAllParties));
+  };
 
   return (
     <div className="relative min-h-screen bg-gradient-to-b from-black via-red-900 to-red-700 shadow-red-400">
@@ -156,10 +169,10 @@ const MyPartys = () => {
         </button>
 
         <TbShovelPitchforks className="text-2xl sm:text-4xl rotate-180" />
-      </div >
+      </div>
       {tab === "upcoming" &&
         (upcomingParty.length === 0 ? (
-          <p className="text-center text-gray-500 mt-10">ยังไม่มีปาร์ตี้</p>
+          <p className="text-center text-gray-200 mt-10">ยังไม่มีปาร์ตี้</p>
         ) : (
           <div className="flex flex-col gap-4 w-full items-center z-10">
             {upcomingParty.map((p) => {
@@ -201,12 +214,15 @@ const MyPartys = () => {
 
       {tab === "history" &&
         (historyParty.length === 0 ? (
-          <p className="text-center text-gray-500 mt-10">
+          <p className="text-center text-gray-200 mt-10">
             ยังไม่มีร้านอาหารที่จอง
           </p>
         ) : (
           <div className="flex flex-col gap-2 w-3/4 items-center mx-auto z-10">
-          
+            <Button onClick={handleDeleteAllHistory}>
+              <MdDelete className="text-2xl" />
+            </Button>
+
             {[...historyParty]
               .sort(
                 (a, b) =>
@@ -249,7 +265,7 @@ const MyPartys = () => {
                         </div>
                         <div>
                           <span className="font-semibold text-gray-500 mr-3">
-                              สาขา :
+                            สาขา :
                           </span>
                           <span className="font-medium text-red-300">
                             {p.branchName}
