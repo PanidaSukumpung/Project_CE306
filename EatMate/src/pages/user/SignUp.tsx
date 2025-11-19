@@ -2,8 +2,7 @@ import { useState } from "react";
 
 // ========== TYPES ==========
 interface AuthProps {
-  onNavigate: (page: 'signin' | 'signup' | 'admin' | 'user') => void;
-  onLogin: (role: "admin" | "user") => void;
+  onNavigate: (page: 'signin' | 'signup') => void;
 }
 
 interface InputFieldProps {
@@ -24,9 +23,9 @@ interface PasswordInputProps {
 }
 
 // ========== MOCK DATA ==========
-const MOCK_USERS = [
-  { email: "admin@example.com", password: "admin123" },
-  { email: "user@example.com", password: "user123" }
+const REGISTERED_USERS: string[] = [
+  "admin@example.com",
+  "user@example.com"
 ];
 
 // ========== REUSABLE COMPONENTS ==========
@@ -70,7 +69,7 @@ const PasswordInput: React.FC<PasswordInputProps> = ({ label, placeholder, value
           placeholder={placeholder}
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          className="bg-transparent border-0 w-full outline-none placeholder-red-200/60 text-white "
+          className="bg-transparent border-0 w-full outline-none placeholder-red-200/60 text-white pr-10"
         />
         <button
           type="button"
@@ -103,41 +102,58 @@ const Button: React.FC<ButtonProps> = ({ onClick, children, className = "" }) =>
 };
 
 // ========== MAIN COMPONENT ==========
-const SignIn: React.FC<AuthProps> = ({ onNavigate ,onLogin }) => {
+const SignUp: React.FC<AuthProps> = ({ onNavigate }) => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
 
-  const handleSignIn = (): void => {
-  if (!email || !password) {
-    alert("กรุณากรอกอีเมลและรหัสผ่าน");
-    return;
-  }
+  const handleSignUp = (): void => {
+    // Validation
+    if (!email || !password || !confirmPassword) {
+      alert("กรุณากรอกข้อมูลให้ครบทุกช่อง");
+      return;
+    }
 
-  const user = MOCK_USERS.find((u) => u.email === email && u.password === password);
+    // Email format validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      alert("กรุณากรอกอีเมลให้ถูกต้อง");
+      return;
+    }
 
-  if (!user) {
-    alert("อีเมลหรือรหัสผ่านไม่ถูกต้อง");
-    return;
-  }
+    // Check if email already exists
+    if (REGISTERED_USERS.includes(email)) {
+      alert("อีเมลนี้ถูกใช้งานแล้ว กรุณาใช้อีเมลอื่น");
+      return;
+    }
 
-  // บอก App ว่าล็อกอินเป็น role อะไร
-  if (email === "admin@example.com") {
-    onLogin("admin");    
-    onNavigate("admin");
-  } else {
-    onLogin("user");
-    onNavigate("user");
-  }
-};
+    // Password length validation
+    if (password.length < 6) {
+      alert("รหัสผ่านต้องมีอย่างน้อย 6 ตัวอักษร");
+      return;
+    }
+
+    // Password match validation
+    if (password !== confirmPassword) {
+      alert("รหัสผ่านไม่ตรงกัน กรุณาลองใหม่");
+      return;
+    }
+
+    // Success
+    alert(`สมัครสมาชิกสำเร็จ!\nEmail: ${email}\n\nกรุณาเข้าสู่ระบบ`);
+    onNavigate('signin');
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-black via-red-900 to-red-950 p-4">
       <div className="w-full max-w-md p-8 bg-white/10 backdrop-blur-sm rounded-2xl shadow-2xl shadow-red-900/50 border border-red-500/30">
         {/* Header */}
         <h1 className="text-4xl font-bold mb-8 text-white text-center">
-          Sign In
+          Sign Up
         </h1>
+
         
+
         {/* Email Input */}
         <InputField
           id="email"
@@ -152,13 +168,22 @@ const SignIn: React.FC<AuthProps> = ({ onNavigate ,onLogin }) => {
         <PasswordInput
           id="password"
           label="Password"
-          placeholder="Enter your password"
+          placeholder="Enter your password (min 6 characters)"
           value={password}
           onChange={setPassword}
         />
 
-        {/* Sign In Button */}
-        <Button onClick={handleSignIn}>Sign In</Button>
+        {/* Confirm Password Input */}
+        <PasswordInput
+          id="confirmPassword"
+          label="Confirm Password"
+          placeholder="Re-enter your password"
+          value={confirmPassword}
+          onChange={setConfirmPassword}
+        />
+
+        {/* Sign Up Button */}
+        <Button onClick={handleSignUp}>Sign Up</Button>
 
         {/* Divider */}
         <div className="flex items-center justify-center py-6 gap-4">
@@ -167,19 +192,18 @@ const SignIn: React.FC<AuthProps> = ({ onNavigate ,onLogin }) => {
           <div className="flex-1 h-[1px] bg-gradient-to-r from-transparent via-red-400/50 to-transparent"></div>
         </div>
 
-        {/* Sign Up Link */}
-        <p className="text-center text-sm text-red-200/80">
-          Don't have an account?{" "}
+        {/* Back to Sign In */}
+        <div className="text-center">
           <span
-            className="text-white font-semibold cursor-pointer hover:underline transition-colors"
-            onClick={() => onNavigate('signup')}
+            className="text-red-300 font-semibold cursor-pointer hover:underline text-sm inline-flex items-center gap-1"
+            onClick={() => onNavigate('signin')}
           >
-            Sign Up
+            ← Back to Sign In
           </span>
-        </p>
+        </div>
       </div>
     </div>
   );
 };
 
-export default SignIn;
+export default SignUp;

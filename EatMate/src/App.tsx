@@ -1,40 +1,62 @@
-
 import Home from "./pages/user/Home";
 import Explore from "./pages/user/Explore";
 import SignIn from "./pages/user/SignIn";
 import RestaurantDetail from "./pages/user/RestaurantDetail";
 import MyPartys from "./pages/user/MyParty";
-import { Routes, Route, Link } from "react-router-dom";
-import Button from "./components/Button";
+import { Routes, Route } from "react-router-dom";
 import "./App.css";
+import NavbarAdmin from "./components/NavbarAdmin";
+import NavbarUser from "./components/NavbarUser";
+import { useState } from "react";
+import RestaurantAdmin from "./pages/admin/RestaurantAdmin";
+import PartyAdmin from "./pages/admin/PartyAdmin";
+
+import { useNavigate } from "react-router-dom";
 
 function App() {
+  const navigate = useNavigate();
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  const handleLogin = (role: "admin" | "user") => {
+    setIsAdmin(role === "admin");
+  };
+
   return (
-    <>
-      <nav className="flex items-center w-full h-20 justify-evenly md:justify-between bg-gradient-to-r from-black via-red-500 to-white bg-[length:400%_400%]
-       shadow-red-400 px-10 fixed top-0 shadow-md z-50">
-        <Link to="/" className="font-bold text-md sm:text-lg md:text-xl text-red-600">
-          EatMate
-        </Link>
-        <div className="flex space-x-5 sm:space-x-10 md:space-x-20 items-center">
-          <Link to="/myparty" className="text-center text-white hover:text-red-600 text-md sm:text-lg md:text-xl">
-            My Party
-          </Link>
-          <Link to="/signin" >
-            <Button variant="secondary" className="text-md sm:text-lg md:text-xl">Sign in</Button>
-          </Link> 
-        </div>
-      </nav>
+    <div>
+      {/* Navbar */}
+      {isAdmin ? <NavbarAdmin onLogout={() => setIsAdmin(false)} /> : <NavbarUser />}
+
       <main className="pt-20">
         <Routes>
+          {/* USER PAGES */}
           <Route path="/" element={<Home />} />
           <Route path="/explore/:category" element={<Explore />} />
-          <Route path="/signin" element={<SignIn />} />
+          <Route
+            path="/signin"
+            element={
+              <SignIn
+                onNavigate={(p) => {
+                  if (p === "admin") navigate("/restaurantadmin");
+                  else if (p === "user") navigate("/");
+                  else navigate(`/${p}`);
+                }}
+                onLogin={handleLogin}
+              />
+            }
+          />
           <Route path="/restaurant/:id" element={<RestaurantDetail />} />
           <Route path="/myparty" element={<MyPartys />} />
+
+          {/* ADMIN PAGES */}
+          {isAdmin && (
+            <>
+              <Route path="/restaurantadmin" element={<RestaurantAdmin />} />
+              <Route path="/partyadmin" element={<PartyAdmin />} />
+            </>
+          )}
         </Routes>
       </main>
-    </>
+    </div>
   );
 }
 
