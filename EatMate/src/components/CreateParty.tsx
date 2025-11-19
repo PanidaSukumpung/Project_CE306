@@ -5,7 +5,7 @@ import { createParty } from "../services/partyService";
 import type { Party } from "../services/partyService";
 import { getBranchesByRestaurant } from "../services/restaurantService";
 import type { Branch } from "../services/restaurantService";
-import { getAllParties ,joinParty, saveMyParty} from "../services/partyService";
+import { getAllParties } from "../services/partyService";
 // import type { MyParty } from "../services/partyService";
 import { useNavigate } from "react-router-dom";
 
@@ -49,6 +49,7 @@ const CreateParty: FC<Props> = ({
       }));
     }
   }, [restaurantId, restaurantName]);
+
   useEffect(() => {
     if (restaurantId) {
       const branch_data = getBranchesByRestaurant(restaurantId);
@@ -114,10 +115,6 @@ const CreateParty: FC<Props> = ({
 
       console.log("สร้างปาร์ตี้ใหม่:", newParty);
       onCreate?.(newParty);
-      
-      joinParty(newParty)
-      saveMyParty(newParty);
-      // setMyParties(getMyParties()); 
 
 
       setFormData({
@@ -134,8 +131,7 @@ const CreateParty: FC<Props> = ({
         branchName: "",
       });
 
-      onClose();
-
+  
       navigate("/myparty");
       
     } catch (err) {

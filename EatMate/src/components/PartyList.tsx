@@ -40,7 +40,7 @@ const PartyList: React.FC<PartyListProps> = ({ parties, setParties}) => {
           <div key={p.id}>
             <PartyCard
               party={p}
-              joined={joined}
+              joined={joined} //ส่งไปบอกว่าให้partycardแสดงข้อความอะไร
               onButtonClick={() => {
                 if (joined) {
                 handleLeave(p);

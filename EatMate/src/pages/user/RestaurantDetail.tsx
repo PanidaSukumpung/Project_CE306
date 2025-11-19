@@ -1,4 +1,4 @@
-import { useParams} from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import SearchBar from "../../components/SearchBar";
 import Button from "../../components/Button";
@@ -26,15 +26,18 @@ const RestaurantDetail = () => {
   const [openModal, setOpenModal] = useState(false);
   const [parties, setParties] = useState<Party[]>([]);
 
- 
-
   useEffect(() => {
     const fetchRestaurant = async () => {
       try {
         setLoading(true);
-        const restaurants = getAllRestaurants(); 
+        const restaurants = getAllRestaurants();
         const found = restaurants.find((r) => r.id === id);
         setRestaurant(found || null);
+
+        const allParties = getAllParties().filter(
+          (p) => p.restaurantId === id && p.status === "pending"
+        );
+        setParties(allParties);
       } catch (error) {
         console.log("Fail to fetch restaurant", error);
       } finally {
@@ -42,13 +45,6 @@ const RestaurantDetail = () => {
       }
     };
     fetchRestaurant();
-  }, [id]); 
-
-  useEffect(() => {
-    const allParties = getAllParties().filter(
-      (p) => p.restaurantId === id && p.status === "pending"
-    );
-    setParties(allParties);
   }, [id]);
 
   const handleCreateParty = (newParty: Party) => {

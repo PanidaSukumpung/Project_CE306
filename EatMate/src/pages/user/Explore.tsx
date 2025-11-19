@@ -6,6 +6,7 @@ import { RiRestaurant2Fill } from "react-icons/ri";
 
 const Explore = () => {
   const { category } = useParams<{ category: string }>();
+  
   let Icon = RiRestaurant2Fill;
   if (category == 'restaurant') {
     Icon = RiRestaurant2Fill;
