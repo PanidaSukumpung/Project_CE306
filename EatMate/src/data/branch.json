@@ -83,5 +83,26 @@
     "branchId": "B17",
     "restaurantId": "R06",
     "branchName": "The Mall Thapra"
+  },
+  {
+    "branchId": "B18",
+    "restaurantId": "R07",
+    "branchName": "Central Rama 9"
+  },
+  {
+    "branchId": "B19",
+    "restaurantId": "R07",
+    "branchName": "Terminal 21 Asok"
+  },
+  {
+    "branchId": "B20",
+    "restaurantId": "R08",
+    "branchName": "EmQuartier"
+  },
+  {
+    "branchId": "B21",
+    "restaurantId": "R08",
+    "branchName": "Central World"
   }
 ]
+

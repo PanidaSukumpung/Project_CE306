@@ -19,16 +19,16 @@ const PartyCard: React.FC<PartyCardProps> = ({
     >
       {/* ครึ่งซ้าย */}
       <div
-        className="flex flex-col items-center justify-center p-5 md:w-1/4 min-w-40 
+        className="flex flex-col items-center justify-center p-5  w-full md:w-1/2
       rounded-2xl
       bg-red-100 border-1 border-red-500 shadow-md shadow-red-400 "
       >
         <img
           src={
             party.img ||
-            "https://t3.ftcdn.net/jpg/06/99/46/60/360_F_699466075_DaPTBNlNQTOwwjkOiFEoOvzDV0ByXR9E.jpg"
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png"
           }
-          className="w-24 h-24 sm:w-28 sm:h-28 rounded-full object-cover border-4 border-red-600 shadow-md"
+          className=" w-24 h-24 sm:w-28 sm:h-28 rounded-full object-cover border-4 border-red-600 shadow-md"
         />
         <div className="flex flex-col text-center">
           <p className="mt-3 text-sm font-medium text-gray-600">Host:</p>

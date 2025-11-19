@@ -64,6 +64,29 @@
         "date": "1 ธันวาคม 2568",
         "party": 2,
         "price": "199 บาท/ท่าน"
-    }
+    },
+    {
+    "id": "R07",
+    "image": "https://images.unsplash.com/photo-1600891964599-f61ba0e24092?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    "name": "Sukiya Japanese Restaurant",
+    "category": "restaurant",
+    "promotion": "10% ส่วนลดเมื่อสั่งเมนูพิเศษ",
+    "description": "ร้านอาหารญี่ปุ่นคุณภาพดี พร้อมเมนูข้าวหน้าปลาดิบ ซูชิ และอาหารจานร้อน",
+    "date": "เปิดทุกวัน 10:00 – 22:00",
+    "party": 4,
+    "price": "เริ่มต้น 250 บาท/ท่าน"
+},
+{
+    "id": "R08",
+    "image": "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    "name": "La Pizzeria",
+    "category": "restaurant",
+    "promotion": "พิซซ่า 1 แถม 1 ทุกวันจันทร์",
+    "description": "ร้านพิซซ่าสไตล์อิตาเลียนแท้ พร้อมวัตถุดิบสดใหม่และชีสเต็มคำ",
+    "date": "เปิดทุกวัน 11:00 – 23:00",
+    "party": 6,
+    "price": "เริ่มต้น 300 บาท/ท่าน"
+}
+
     
 ]

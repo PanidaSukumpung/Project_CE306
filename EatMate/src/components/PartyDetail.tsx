@@ -3,7 +3,6 @@ import Button from "./Button";
 import type { Party } from "../services/partyService";
 import { IoIosCloseCircle } from "react-icons/io";
 
-
 interface PartyDetailProps {
   isOpen: boolean;
   onClose: () => void;
@@ -26,28 +25,31 @@ const PartyDetail: React.FC<PartyDetailProps> = ({
 
   return (
     <div className="fixed z-50 inset-0 flex justify-center items-center bg-black bg-opacity-30 p-6">
-      <div className="relative bg-white flex w-10/12 md:w-1/2 justify-between rounded-md shadow-xl ">
-        <button onClick={onClose} className="absolute right-0 top-0">
-          <IoIosCloseCircle className="text-2xl text-gray-200 hover:text-gray-500" />
+      <div className="relative bg-white flex w-10/12 md:w-1/2 justify-between rounded-md shadow-xl">
+        <button onClick={onClose} className="absolute right-0 top-0 z-10 p-3">
+          <IoIosCloseCircle className="text-3xl text-gray-400 hover:text-gray-500" />
         </button>
-        {/* หัว */}
-        <div className="flex w-full gap-4 ">
-          <div className="flex flex-col justify-between flex-1 gap-3 text-gray-800 p-4 bg-white rounded-xl shadow-sm">
-            {/* แถวแรก: ร้านอาหาร / วันที่ */}
-            <div className="flex justify-center gap-4">
-              <div className="flex">
-                <p className="font-semibold">ร้านอาหาร:</p>
-                <div className="font-medium text-red-700 ml-2">
-                  {party.location}
+
+        <div className="flex w-full gap-4">
+          <div className="flex flex-col justify-between flex-1 gap-4 text-gray-800 p-6 bg-white rounded-xl shadow-sm">
+            <div className="flex flex-col md:flex-row justify-between md:justify-center gap-4 flex-wrap">
+              <div className="flex gap-4 flex-wrap">
+                <div className="flex">
+                  <p className="font-semibold">ร้านอาหาร:</p>
+                  <div className="font-medium text-red-700 ml-2">
+                    {party.location}
+                  </div>
+                </div>
+                <div className="flex">
+                  <p className="font-semibold">สาขา:</p>
+                  <div className="font-medium text-red-700 ml-2">
+                    {party.branchName}
+                  </div>
                 </div>
               </div>
-              <div className="flex">
-                <p className="font-semibold">สาขา:</p>
-                <div className="font-medium text-red-700 ml-2">
-                  {party.branchName}
-                </div>
-              </div>
-              <div className="flex">
+
+              <div className="flex gap-4 flex-wrap">
+                <div className="flex">
                   <p className="font-semibold">วันที่:</p>
                   <div className="font-medium text-red-700 ml-2">
                     {party.date}
@@ -59,30 +61,35 @@ const PartyDetail: React.FC<PartyDetailProps> = ({
                     {party.time}
                   </div>
                 </div>
+              </div>
             </div>
 
-            <div className="flex justify-center gap-4">
+            <div className="flex flex-col md:flex-row justify-center gap-4 flex-wrap">
               <div className="flex">
                 <p className="font-semibold">จำนวนคน:</p>
                 <div className="font-medium text-red-700 ml-2">
                   {party.participants} / {party.maxParticipants}
                 </div>
               </div>
+
               <div className="flex">
                 <p className="font-semibold mb-1">รายละเอียด:</p>
-                <div className="text-gray-700">
+                <div className="text-gray-700 ml-2">
                   {party.details || "ไม่มีรายละเอียดเพิ่มเติม"}
                 </div>
               </div>
             </div>
 
-            <div className="flex w-full mt-4">
-              <button className="text-gray-500 w-1/2" onClick={onClose}>
-                cancle
+            <div className="flex w-full mt-4 border-t pt-4 border-gray-100">
+              <button
+                className="text-gray-500 w-1/2 hover:text-gray-700 font-medium"
+                onClick={onClose}
+              >
+                ยกเลิก
               </button>
               <Button
-              size="sm"
-                className="w-1/2 py-3 text-lg font-bold"
+                size="sm"
+                className="w-1/2 py-3 text-lg font-bold bg-red-600 hover:bg-red-700"
                 onClick={handleJoin}
               >
                 ยืนยันเข้าร่วมปาร์ตี้

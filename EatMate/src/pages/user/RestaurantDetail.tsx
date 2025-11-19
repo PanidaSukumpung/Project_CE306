@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams} from "react-router-dom";
 import { useState, useEffect } from "react";
 import SearchBar from "../../components/SearchBar";
 import Button from "../../components/Button";
@@ -67,8 +67,8 @@ const RestaurantDetail = () => {
   }
 
   return (
-    <div className=" bg-white p-4 space-y-4 h-screen">
-      <div className="relative w-full flex justify-center items-center">
+    <div className=" bg-white p-4 space-y-4 h-full">
+      <div className="relative w-full flex justify-center items-center z-0">
         <Link to="/">
           <MdOutlineKeyboardBackspace
             className="absolute left-4 text-2xl cursor-pointer font-bold
@@ -80,11 +80,11 @@ const RestaurantDetail = () => {
         </div>
       </div>
 
-      <div className="gap-4 flex flex-col items-center md:flex-row md:items-start h-full mb-10">
+      <div className="gap-4 flex flex-col items-stretch sm:flex-row md:items-start mb-10 min-h-[60vh] md:min-h-[70vh] z-10">
         {/* ครึ่งซ้าย */}
         <div
-          className="flex flex-col justify-between w-full md:w-3/5 lg:w-2/3 h-full p-4 rounded-2xl shadow-md shadow-gray-400 ring-1 ring-white
-            bg-white"
+          className="flex flex-col w-full md:w-3/5 lg:w-2/3  p-4 rounded-2xl shadow-md shadow-gray-400 ring-1 ring-white
+            bg-white sm:overflow-y-auto  max-h-[70vh]"
         >
           <div className="flex flex-col justify-center items-center space-y-6 rounded-md">
             <img
@@ -119,9 +119,9 @@ const RestaurantDetail = () => {
 
         {/* ครึ่งขวา */}
         <div
-          className="w-full h-auto max-h-full md:w-2/5 lg:w-1/3 flex flex-col items-center 
+          className="w-full md:w-2/5 lg:w-1/3 flex flex-col items-center h-full  sm:max-h-[70vh]
           bg-gradient-to-br from-black via-red-500 to-white bg-[length:400%_400%]
-            rounded-2xl overflow-y-auto "
+            rounded-2xl sm:overflow-y-auto "
         >
           <div className="w-full flex flex-col items-center p-4">
             <h1 className="text-red-500 fond-bold text-2xl ">

@@ -23,7 +23,7 @@ const Explore = () => {
         </div>
         
       
-      <div className="flex flex-col flex-wrap justify-center items-center mx-auto space-y-6 w-2/3">
+      <div className="flex flex-col flex-wrap justify-center items-center mx-auto space-y-6 w-5/6 sm:w-2/3">
         {category ? (
         <RestaurantList filterCategory={category} />
       ) : (

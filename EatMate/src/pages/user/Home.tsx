@@ -17,11 +17,11 @@ const Home = () => {
   return (
     <div>
       <div className="relative flex flex-col items-center mt-20 mb-20">
-        <IoIosChatbubbles className="absolute left-0 text-7xl sm:text-9xl"/>
-        <IoChatbubble className="absolute right-0 top-0 text-6xl sm:text-8xl scale-x-[-1] text-red-800"/>
+        <IoIosChatbubbles className="absolute left-0 hidden text-7xl sm:text-9xl"/>
+        <IoChatbubble className="absolute right-0 top-0 text-6xl sm:text-8xl hidden scale-x-[-1] text-red-800"/>
 
         <section className="flex items-center justify-center gap-3 w-full px-4 mb-4">
-          <TbShovelPitchforks className="text-4xl sm:text-6xl text-red-800" />
+          <TbShovelPitchforks className="text-4xl  sm:text-6xl text-red-800" />
 
           <div className="text-center">
             <p className="text-3xl sm:text-5xl text-red-600 font-bold">หาเพื่อนกิน</p>
@@ -31,7 +31,7 @@ const Home = () => {
           <TbShovelPitchforks className="text-4xl sm:text-6xl rotate-180" />
         </section>
 
-        <div className="flex w-full sm:w-1/2 justify-center items-center mt-3">
+        <div className="flex w-full m2 md:w-1/2 justify-center items-center sm:mt-3">
           <SearchBar />
         </div>
       </div>
@@ -42,7 +42,7 @@ const Home = () => {
         <div className="flex flex-col sm:flex-row justify-center items-center gap-6 p-2">
           {/* card */}
           <div
-            onClick={() => handleCategoryClick("Restaurant")}
+            onClick={() => handleCategoryClick("restaurant")}
             className="flex flex-col items-center p-4 rounded-xl shadow-red-200 shadow-lg gap-2 w-[150px]
         bg-gradient-to-r from-black via-red-500 to-white bg-[length:400%_400%]
         hover:scale-110 hover:shadow-red-900 hover:shadow-xl

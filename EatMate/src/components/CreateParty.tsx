@@ -147,16 +147,17 @@ const CreateParty: FC<Props> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed z-50 inset-0 flex justify-center items-center bg-black bg-opacity-30 p-6">
-      <div className="bg-white flex flex-col w-10/12 md:w-1/2 justify-between rounded-md shadow-xl">
+    <div className="fixed z-50 inset-0 flex justify-center items-center bg-black bg-opacity-30 p-6 ">
+      <div className="bg-white flex flex-col w-full md:w-4/6 h-full max-h-[90vh] md:h-3/6 justify-between rounded-md shadow-xl 
+">
         {/* หัว */}
         <div className="w-full flex justify-center font-bold text-xl bg-red-600 rounded-t-md">
           <p className="text-white p-4">Create Party</p>
         </div>
 
         {/* ฟอร์ม */}
-        <div className="flex flex-col bg-white w-full p-8">
-          <form onSubmit={handleSubmit} className="space-y-4">
+        <div className="flex flex-col flex-1 w-full bg-white p-3 md:p-6 overflow-y-auto">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-full h-full justify-evenly">
             {/* ชื่อปาร์ตี้ */}
             <div className="flex flex-col">
               <label
@@ -193,8 +194,8 @@ const CreateParty: FC<Props> = ({
             </div>
 
             {/* วันที่ / เวลา / จำนวน */}
-            <div className="flex justify-between gap-4">
-              <div className="flex flex-col w-1/3">
+            <div className="flex flex-col md:flex-row justify-between gap-4">
+              <div className="flex flex-col w-full md:w-1/3">
                 <label htmlFor="date" className="font-semibold text-gray-700">
                   วันที่
                 </label>
@@ -208,7 +209,7 @@ const CreateParty: FC<Props> = ({
                 />
               </div>
 
-              <div className="flex flex-col w-1/3">
+              <div className="flex flex-col w-full md:w-1/3">
                 <label htmlFor="time" className="font-semibold text-gray-700">
                   เวลา
                 </label>
@@ -222,7 +223,7 @@ const CreateParty: FC<Props> = ({
                 />
               </div>
 
-              <div className="flex flex-col w-1/3">
+              <div className="flex flex-col w-full md:w-1/3">
                 <label
                   htmlFor="maxParticipants"
                   className="font-semibold text-gray-700"
@@ -257,7 +258,7 @@ const CreateParty: FC<Props> = ({
               />
             </div>
 
-            <div className="flex items-center space-x-2">
+            <div className="flex flex-col md:flex-row items-center space-x-2">
               {/* ร้านอาหาร (auto fill) */}
               <div className="flex flex-col w-full">
                 <label

@@ -1,7 +1,7 @@
 import React from "react";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-    variant ?: 'primary' | 'secondary' ;
+    variant ?: 'primary' | 'secondary' |'success' ;
     size ?: 'sm' | 'md' |'lg';
     children: React.ReactNode;
 }
@@ -40,9 +40,17 @@ const Button : React.FC<ButtonProps> = ({
             hover:bg-red-600 hover:text-white   
             `;
             break;
+        case 'success' :
+            variantStyles = `
+            bg-green-500 text-white
+            ring-2 ring-red-600 shadow-lg
+             hover:bg-green-700
+
+            `;
+            break;
         default: 
             variantStyles = `
-            bg-red-600 text-white
+            text-white
             hover:bg-red-700 
             focus:ring-red-500
             disabled:hover:bg-red-600
