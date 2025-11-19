@@ -1,87 +1,179 @@
-import { MdOutlineAlternateEmail } from "react-icons/md";
-import { FaFingerprint, FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
+// ========== TYPES ==========
+interface AuthProps {
+  onNavigate: (page: 'signin' | 'signup') => void;
+}
 
-const SignIn = () => {
-  const [showPassword, setShowPassword] = useState<boolean>(false);
-  const toggledPasswordVisibilty = () => setShowPassword(!showPassword);
-  const EyeToggleIcon = showPassword ? FaRegEyeSlash : FaRegEye;
-  const navigate = useNavigate();
+interface InputFieldProps {
+  label: string;
+  type: string;
+  placeholder: string;
+  value: string;
+  onChange: (value: string) => void;
+  id: string;
+}
+
+interface PasswordInputProps {
+  label: string;
+  placeholder: string;
+  value: string;
+  onChange: (value: string) => void;
+  id: string;
+}
+
+// ========== MOCK DATA ==========
+const MOCK_USERS = [
+  { email: "admin@example.com", password: "admin123" },
+  { email: "user@example.com", password: "user123" }
+];
+
+// ========== REUSABLE COMPONENTS ==========
+
+// Input Component
+const InputField: React.FC<InputFieldProps> = ({ label, type, placeholder, value, onChange, id }) => {
   return (
-    <div className=" flex items-center justify-end bg-gray-50 pr-36">
-      <div className="w-full mt-20 max-w-md p-8 bg-red-100 rounded-2xl flex flex-col items-center shadow-2xl shadow-red-900  ">
-        <h1 className="text-3xl font-bold mb-16 text-red-600">SignIn</h1>
-        <div className="w-full mb-8">
-          <div className="flex h-12 items-center bg-red-200 p-3 rounded-xl gap-3 shadow-inner shadow-red-300">
-            <MdOutlineAlternateEmail className="text-red-600 text-xl" />
-            <input
-              type="email"
-              placeholder="Email account"
-              className="bg-transparent border-0 w-full outline-none text-red-800 placeholder-red-400 " // ปรับสี text และ placeholder
-            />
-          </div>
-        </div>
-        {/* ปรับ w-11/12 และเพิ่ม mb-6 */}
-        <div className="w-full mb-8">
-          <div className="flex h-12 items-center bg-red-200 p-3 rounded-xl gap-3 relative shadow-inner shadow-red-300">
-            {" "}
-            {/* h-10 p-2 gap-2 -> h-12 p-3 gap-3 rounded-xl */}
-            <FaFingerprint className="text-red-600 text-xl" />{" "}
-            {/* เพิ่มขนาด icon */}
-            <input
-              type={showPassword ? "text" : "password"}
-              placeholder="password"
-              className="bg-transparent border-0 w-full outline-none text-red-800 placeholder-red-400 " // ปรับสี text และ placeholder
-            />
-            <EyeToggleIcon
-              className="absolute right-3 cursor-pointer text-red-600 text-xl"
-              onClick={toggledPasswordVisibilty}
-            />
-          </div>
-        </div>
-        <div className="w-full mb-8">
-          <div className="flex h-12 items-center bg-red-200 p-3 rounded-xl gap-3 relative shadow-inner shadow-red-300">
-            {" "}
-            {/* h-10 p-2 gap-2 -> h-12 p-3 gap-3 rounded-xl */}
-            <FaFingerprint className="text-red-600 text-xl" />{" "}
-            {/* เพิ่มขนาด icon */}
-            <input
-              type={showPassword ? "text" : "password"}
-              placeholder="confirm password"
-              className="bg-transparent border-0 w-full outline-none text-red-800 placeholder-red-400 " // ปรับสี text และ placeholder
-            />
-            <EyeToggleIcon
-              className="absolute right-3 cursor-pointer text-red-600 text-xl"
-              onClick={toggledPasswordVisibilty}
-            />
-          </div>
-        </div>
-        <div className="w-full -mb-2"></div>
-        <button className="w-full p-2 bg-red-600 rounded-xl mt-3 hover:bg-red-700 text-sm md:text-base text-white ">
-          SignIn
-        </button>
-        <div className="relative w-full flex item-center justify-center py-3">
-          <div className="w-2/3 mt-5 h-[2px] bg-gray-400"></div>
-          <h2 className="text-xs mt-3 md:text-sm px-4 text-gray-600">Or</h2>
-          <div className="w-2/3 mt-5 h-[2px] bg-gray-400"></div>
-        </div>
-        <p className="text-sm text-gray-600 mb-3 ">
-          {/* ปรับ text-xs เป็น text-sm และเพิ่ม mt-4 */}
-          Don't have account?
-          <span
-            className="text-red-600 font-semibold cursor-pointer hover:underline "
-            onClick={() => navigate("/signup")}
-          >
-            SignUp
-          </span>
-          {/* เพิ่ม font-semibold, cursor-pointer, hover:underline */}
-        </p>
-        
+    <div className="mb-6">
+      <label htmlFor={id} className="block text-red-200 text-sm mb-2">
+        {label}
+      </label>
+      <div className="flex items-center bg-white/20 p-3 rounded-xl shadow-inner shadow-black/25 border border-white/10 focus-within:border-red-400 transition-colors">
+        <input
+          id={id}
+          name={id}
+          type={type}
+          placeholder={placeholder}
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          className="bg-transparent border-0 w-full outline-none placeholder-red-200/60 text-white"
+        />
       </div>
     </div>
-    
+  );
+};
+
+// Password Input Component
+const PasswordInput: React.FC<PasswordInputProps> = ({ label, placeholder, value, onChange, id }) => {
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+
+  return (
+    <div className="mb-6">
+      <label htmlFor={id} className="block text-red-200 text-sm mb-2">
+        {label}
+      </label>
+      <div className="flex items-center bg-white/20 p-3 rounded-xl shadow-inner shadow-black/25 border border-white/10 focus-within:border-red-400 transition-colors relative">
+        <input
+          id={id}
+          name={id}
+          type={showPassword ? "text" : "password"}
+          placeholder={placeholder}
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          className="bg-transparent border-0 w-full outline-none placeholder-red-200/60 text-white "
+        />
+        <button
+          type="button"
+          onClick={() => setShowPassword(!showPassword)}
+          className="absolute right-3 text-red-300 hover:text-red-200 transition-colors text-sm font-semibold"
+        >
+          {showPassword ? "Hide" : "Show"}
+        </button>
+      </div>
+    </div>
+  );
+};
+
+// Button Component
+interface ButtonProps {
+  onClick: () => void;
+  children: React.ReactNode;
+  className?: string;
+}
+
+const Button: React.FC<ButtonProps> = ({ onClick, children, className = "" }) => {
+  return (
+    <button
+      onClick={onClick}
+      className={`w-full p-3 bg-red-600 hover:bg-red-500 rounded-xl font-semibold text-white shadow-lg shadow-red-900/50 transition-all hover:shadow-red-800/50 active:scale-[0.98] ${className}`}
+    >
+      {children}
+    </button>
+  );
+};
+
+// ========== MAIN COMPONENT ==========
+const SignIn: React.FC<AuthProps> = ({ onNavigate }) => {
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+
+  const handleSignIn = (): void => {
+    if (!email || !password) {
+      alert("กรุณากรอกอีเมลและรหัสผ่าน");
+      return;
+    }
+
+    // Mock Authentication
+    const user = MOCK_USERS.find(
+      (u) => u.email === email && u.password === password
+    );
+
+    if (user) {
+      alert(`เข้าสู่ระบบสำเร็จ!\nEmail: ${email}`);
+      // Navigate to dashboard or home page
+    } else {
+      alert("อีเมลหรือรหัสผ่านไม่ถูกต้อง");
+    }
+  };
+
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-black via-red-900 to-red-950 p-4">
+      <div className="w-full max-w-md p-8 bg-white/10 backdrop-blur-sm rounded-2xl shadow-2xl shadow-red-900/50 border border-red-500/30">
+        {/* Header */}
+        <h1 className="text-4xl font-bold mb-8 text-white text-center">
+          Sign In
+        </h1>
+        
+        {/* Email Input */}
+        <InputField
+          id="email"
+          label="Email"
+          type="email"
+          placeholder="your.email@example.com"
+          value={email}
+          onChange={setEmail}
+        />
+
+        {/* Password Input */}
+        <PasswordInput
+          id="password"
+          label="Password"
+          placeholder="Enter your password"
+          value={password}
+          onChange={setPassword}
+        />
+
+        {/* Sign In Button */}
+        <Button onClick={handleSignIn}>Sign In</Button>
+
+        {/* Divider */}
+        <div className="flex items-center justify-center py-6 gap-4">
+          <div className="flex-1 h-[1px] bg-gradient-to-r from-transparent via-red-400/50 to-transparent"></div>
+          <span className="text-sm text-red-200/80 font-medium">Or</span>
+          <div className="flex-1 h-[1px] bg-gradient-to-r from-transparent via-red-400/50 to-transparent"></div>
+        </div>
+
+        {/* Sign Up Link */}
+        <p className="text-center text-sm text-red-200/80">
+          Don't have an account?{" "}
+          <span
+            className="text-white font-semibold cursor-pointer hover:underline transition-colors"
+            onClick={() => onNavigate('signup')}
+          >
+            Sign Up
+          </span>
+        </p>
+      </div>
+    </div>
   );
 };
 
