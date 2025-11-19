@@ -142,6 +142,7 @@ const SignUp: React.FC<AuthProps> = ({ onNavigate }) => {
     // Success
     alert(`สมัครสมาชิกสำเร็จ!\nEmail: ${email}\n\nกรุณาเข้าสู่ระบบ`);
     onNavigate('signin');
+    
   };
 
   return (

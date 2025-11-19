@@ -10,8 +10,9 @@ import NavbarUser from "./components/NavbarUser";
 import { useState } from "react";
 import RestaurantAdmin from "./pages/admin/RestaurantAdmin";
 import PartyAdmin from "./pages/admin/PartyAdmin";
-
 import { useNavigate } from "react-router-dom";
+import SignUp from "./pages/user/SignUp";
+
 
 function App() {
   const navigate = useNavigate();
@@ -20,17 +21,21 @@ function App() {
   const handleLogin = (role: "admin" | "user") => {
     setIsAdmin(role === "admin");
   };
+   const handleNavigate = (page: "signin" | "signup") => {
+    navigate(`/${page}`);
+  };
 
   return (
     <div>
       {/* Navbar */}
       {isAdmin ? <NavbarAdmin onLogout={() => setIsAdmin(false)} /> : <NavbarUser />}
-
+        
       <main className="pt-20">
         <Routes>
           {/* USER PAGES */}
           <Route path="/" element={<Home />} />
           <Route path="/explore/:category" element={<Explore />} />
+          <Route path="/signup" element={<SignUp onNavigate={handleNavigate} />} />
           <Route
             path="/signin"
             element={
@@ -42,6 +47,8 @@ function App() {
                 }}
                 onLogin={handleLogin}
               />
+            
+              
             }
           />
           <Route path="/restaurant/:id" element={<RestaurantDetail />} />
